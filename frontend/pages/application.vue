@@ -4,14 +4,14 @@
     <div class="container-fluid">
     <div class="card-body">
       <div class="table-responsive">  
-       <table class="table table-bordered table-hover table-sm text-center" id="myTable" >
-          <thead>
+       <table class="table table-bordered table-hover table-sm text-center " id="myTable" >
+          <thead class="text-uppercase">
             <tr>
               <th>#</th>            
               <th>Name</th>                     
               <th>Mobile</th>                                         
               <th>Email</th>             
-              <th>Text</th>             
+              <th>Text Message</th>             
               <th>Created</th>                 
               <th>Action</th>
             </tr>
@@ -23,18 +23,9 @@
               <td>{{application.Mobile}}</td>
               <td>{{application.Email}}</td>
               <td>{{application.Text}}</td>
-              <td> {{ application.created_at }} </td>
-              <td>     
-                <div class="dropdown">
-                      <i class="fas fa-ellipsis-h"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>           
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                     
-                          <router-link to="#" class="dropdown-item">View</router-link>
-                          <router-link :to="{name:'UserEdit',params:{id:application.id} }" class="dropdown-item">Edit</router-link>                                          
-                          <a class="dropdown-item" href="" >Delete</a>
-                 
-                        </div>
-                    </div>
+              <td> {{ getDate(application.created_at) }} </td>
+              <td>
+              <NuxtLink to="#" class="btn btn-sm btn-dark">View</NuxtLink>     
               </td>
             </tr>
        
@@ -48,11 +39,17 @@
 
 <script>
 import axios from 'axios';
+import moment from 'moment';
 export default {
  data() {
       return {
         applications: [],
       }
+  },
+    methods: {
+     getDate(date) {
+      return moment(date).format('lll');
+     }
   },
     mounted() {
       axios.get(`http://127.0.0.1:8000/api/application`)
@@ -64,8 +61,8 @@ export default {
       })
 
     }
+    }
 
-}
 </script>
 
 <style>

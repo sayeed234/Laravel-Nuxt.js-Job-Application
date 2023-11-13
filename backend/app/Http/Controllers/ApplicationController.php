@@ -10,7 +10,7 @@ class ApplicationController extends Controller
     public function resume_upload(Request $request){
   $validator = Validator::make($request->all(), [
             'Name' => 'required|string',
-            'Mobile' => 'required|digits:11',
+            'Mobile' => 'required',
             'Email' => 'required|regex:/(.+)@(.+)\.(.+)/i',
             'Text' => 'required',
             'Resume' => 'required|mimes:pdf|max:1024',
